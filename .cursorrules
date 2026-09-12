@@ -1,0 +1,106 @@
+# Android Architecture & Coding Guidelines
+
+## Core Principles
+- **Target SDK & Language:** Use Kotlin exclusively with modern Android standards and Kotlin Coroutines/Flow.
+- **Architecture Pattern:** Clean Architecture combined with MVVM or MVI pattern. Unidirectional Data Flow (UDF) is strictly required.
+- **UI Framework:** Jetpack Compose only (100% Declarative UI). No XML layouts or Databinding.
+- **Dependency Injection:** Hilt for managing dependencies across all layers.
+
+---
+
+## 1. Clean Architecture Layers
+
+### Layer Boundaries & Flow of Dependencies
+
+```
+
+```
+    ┌─────────────┐
+    │   UI / Presentation Layer (MVVM / MVI)   │
+    └──────┬──────┘
+           │ (Depends on)
+           ▼
+    ┌─────────────┐
+    │    Domain Layer (Use Cases, Models)      │
+    └──────▲──────┘
+           │ (Implemented by)
+           ▼
+    ┌─────────────┐
+    │     Data Layer (Repos, Data Sources)     │
+    └─────────────┘
+
+```
+
+```
+
+### A. Presentation / UI Layer
+- **Responsibility:** Pure UI rendering, handling user actions, observing state.
+- Use **Jetpack Compose** exclusively with `StateFlow` and collect state using `collectAsStateWithLifecycle()`.
+- **UI State:** Model UI state as a single immutable `data class` or `sealed interface`.
+- **UI Events / Intent (MVI):** Handle user interactions using a `sealed interface` (e.g., `UiEvent` or `UserIntent`).
+- **ViewModel:** Inject Use Cases into ViewModels using `@HiltViewModel`. Never pass Android Framework context or UI state directly into Domain/Data layers.
+
+### B. Domain Layer
+- **Responsibility:** Core business logic. Completely independent of Android framework dependencies.
+- Contains **Models**, **Repository Interfaces**, and **Use Cases**.
+- **Use Cases:** 
+  - Each Use Case must fulfill a single responsibility (Single Responsibility Principle).
+  - Provide an `operator fun invoke()` to execute business logic.
+  - Return explicit `Result<T>` or `Flow<Result<T>>` wrappers.
+
+### C. Data Layer
+- **Responsibility:** Data fetching, caching, network requests, and mapping data to Domain models.
+- Contains **Repository Implementations**, **Data Sources** (Retrofit, Room, DataStore), and **DTOs/Entities**.
+- Do not expose DTOs or Database Entities to the UI/Domain layer; map them to Domain models using explicit mapper functions.
+
+---
+
+## 2. Dependency Injection (Hilt)
+
+- Use `@HiltAndroidApp` on Application class and `@AndroidEntryPoint` on Activities/Fragments (if any).
+- Provide modules with `@Module` and `@InstallIn(SingletonComponent::class)` or ViewModel/Activity-scoped components as required.
+- Bind interfaces to implementations via `@Binds` in abstract modules instead of `@Provides` whenever possible.
+
+---
+
+## 3. Jetpack Compose, Performance & Recomposition Rules
+
+### A. Recomposition & Stability Optimization
+- **Stable Parameters:** Ensure all data models passed to Composables are stable. Use `@Immutable` or `@Stable` annotations for UI state wrappers and custom data classes when necessary, or use immutable collections (`kotlinx.collections.immutable.ImmutableList`).
+- **Lambda Instantiation:** Pass lambda callbacks down through Composables instead of passing ViewModels or mutators directly (e.g., `onItemClick: (String) -> Unit`).
+- **Derived State:** Use `remember { derivedStateOf { ... } }` when a state calculation depends on other rapidly changing states (e.g., scroll offsets) to prevent unnecessary recompositions.
+- **Keyed Loops:** Always pass unique keys to `LazyColumn` / `LazyRow` items (`items(items = list, key = { it.id })`) to preserve scroll position and enable efficient reordering.
+
+### B. Layout & Performance Best Practices
+- **Defer State Reading:** Read state as late as possible (e.g., inside layout or draw phases using lambda modifiers like `Modifier.offset { IntOffset(...) }` instead of standard `Modifier.offset(...)`).
+- **Modifier Discipline:** Always pass `modifier: Modifier = Modifier` as the first optional parameter of public Composables. Chain modifiers sequentially and avoid recreating modifiers inside tight loops.
+- **Heavy Computations:** Never execute heavy calculations directly inside Composable functions without `remember`.
+
+---
+
+## 4. Design System & Styling Rules
+
+- **Material Theme Integration:** Use `MaterialTheme.colorScheme`, `MaterialTheme.typography`, and `MaterialTheme.shapes` exclusively. Avoid hardcoding raw colors (`Color(0xFF...)`) or text sizes inside screen Composable implementations.
+- **Custom Design Tokens:** Create custom theme providers or extends `MaterialTheme` if the design system requires custom colors/spacing tokens.
+- **Component Reusability:** Build modular, stateless UI components (e.g., `AppButton`, `AppTextField`, `AppCard`) in a standalone Design System package/module.
+- **Stateless Composables:** Separate Composable screens into a stateful container (observing ViewModel state) and a stateless Composable component (receiving raw state and emitting events).
+
+---
+
+## 5. Asynchronous Programming & State Handling
+
+- Use **Kotlin Flow** and **Coroutines** for asynchronous tasks.
+- Expose read-only `StateFlow` or `SharedFlow` from ViewModel to UI.
+- Use `viewModelScope` for launching coroutines inside ViewModel.
+- Always handle errors explicitly using `Result` or custom domain error classes. Avoid empty catch blocks.
+
+---
+
+## 6. Code Generation & Instructions for Cursor
+
+1. **Idiomatic Kotlin:** Write concise, readable, and type-safe Kotlin code using expression bodies, extension functions, and scope functions appropriately.
+2. **Boilerplate Avoidance:** Keep code clean without unnecessary interface abstractions if the logic doesn't warrant it, but maintain layer boundaries.
+3. **Immutability:** Default to `val`, immutable collections, and copy operations on data classes.
+4. **Comments & Documentation:** Avoid redundant comments. Code should be self-explanatory with clean naming conventions.
+
+```
