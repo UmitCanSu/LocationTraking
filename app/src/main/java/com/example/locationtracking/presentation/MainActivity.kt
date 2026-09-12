@@ -1,4 +1,4 @@
-package com.example.locationtracking
+package com.example.locationtracking.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
