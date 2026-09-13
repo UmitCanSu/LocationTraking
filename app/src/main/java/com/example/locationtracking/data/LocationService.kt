@@ -7,7 +7,7 @@ import android.content.pm.ServiceInfo
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import androidx.core.app.ServiceCompat
-import com.example.locationtracking.domain.LocationClient
+import com.example.locationtracking.domain.repository.LocationClient
 import com.example.locationtracking.R
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope

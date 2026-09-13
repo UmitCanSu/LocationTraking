@@ -1,8 +1,8 @@
 package com.example.locationtracking.core.di
 
 import android.content.Context
-import com.example.locationtracking.data.DefaultLocationClient
-import com.example.locationtracking.domain.LocationClient
+import com.example.locationtracking.data.repository.DefaultLocationClient
+import com.example.locationtracking.domain.repository.LocationClient
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import dagger.Module
