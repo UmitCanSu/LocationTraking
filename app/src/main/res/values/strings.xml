@@ -1,3 +1,42 @@
 <resources>
     <string name="app_name">LocationTracking</string>
+    <!-- Map Canvas & Overlays -->
+    <string name="cd_map_layers">Harita Katmanları</string>
+    <string name="cd_map_compass">Pusula / Yön</string>
+    <string name="cd_map_my_location">Konumuma Odaklan</string>
+    <string name="marker_start_title">#1 (0m) Başlangıç</string>
+    <string name="marker_indexed_title">#%1$d (%2$dm)</string>
+    <string name="scale_legend_100m">100m</string>
+
+    <!-- Selected Marker Detail -->
+    <string name="cd_close">Kapat</string>
+    <string name="waypoint_number_title">İşaretçi #%1$d</string>
+    <string name="waypoint_meter_badge">%1$d. Metre</string>
+    <string name="waypoint_record_time">Kayıt Zamanı: %1$s • Otomatik GPS Tetikleme</string>
+    <string name="address_loading">Adres sorgulanıyor...</string>
+    <string name="address_default">Adres bilgisi alınıyor...</string>
+    <string name="waypoint_coords_format">%1$.4f° K, %2$.4f° D</string>
+    <string name="label_speed">Anlık Hız</string>
+    <string name="speed_format">%1$.1f km/s</string>
+    <string name="label_altitude">Rakım / Yükseklik</string>
+    <string name="altitude_format">%1$.0f metre</string>
+    <string name="btn_share_point">Noktayı Paylaş</string>
+    <string name="btn_navigate_point">Buraya Yönel</string>
+
+    <!-- Primary Action Controls -->
+    <string name="btn_reset_route">Rotayı Sıfırla</string>
+    <string name="btn_grant_and_start">İzin Ver &amp; Başlat</string>
+    <string name="btn_stop_tracking">Takibi Durdur</string>
+    <string name="btn_start_tracking">Takibe Başla</string>
+
+    <!-- Permission Request Banner -->
+    <string name="permission_banner_title">Konum ve Bildirim İzni Gerekli</string>
+    <string name="permission_banner_desc">100m filtreli arka plan takibi için izinleri onaylayın.</string>
+    <string name="btn_grant_permission">İzin Ver</string>
+
+    <!-- Reset Route Dialog -->
+    <string name="dialog_reset_title">Rotayı Sıfırla?</string>
+    <string name="dialog_reset_message">Kaydedilen tüm 100m işaretçileri ve toplam rota veritabanından kalıcı olarak silinecektir.</string>
+    <string name="dialog_reset_confirm">Evet, Sıfırla</string>
+    <string name="dialog_reset_cancel">Vazgeç</string>
 </resources>

@@ -76,4 +76,5 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     debugImplementation(libs.androidx.compose.ui.tooling)
     implementation(libs.play.services.location)
+    implementation(libs.accompanist.permissions)
 }
