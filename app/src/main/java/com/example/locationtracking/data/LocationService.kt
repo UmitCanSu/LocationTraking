@@ -5,10 +5,13 @@ import android.app.Service
 import android.content.Intent
 import android.content.pm.ServiceInfo
 import android.os.IBinder
+import android.util.Log
+import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.app.ServiceCompat
-import com.example.locationtracking.domain.repository.LocationClient
 import com.example.locationtracking.R
+import com.example.locationtracking.domain.repository.LocationClient
+import com.example.locationtracking.domain.usecase.ProcessLocationUseCase
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -23,6 +26,10 @@ import javax.inject.Inject
 class LocationService : Service() {
     @Inject
     lateinit var locationClient: LocationClient
+
+    @Inject
+    lateinit var processLocationUseCase: ProcessLocationUseCase
+
     private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -42,7 +49,7 @@ class LocationService : Service() {
         val notificationManager =
             getSystemService(NOTIFICATION_SERVICE) as NotificationManager
 
-        locationClient.getLocationUpdates(10000L).catch { e -> e.printStackTrace() }
+        locationClient.getLocationUpdates().catch { e -> e.printStackTrace() }
             .onEach { location ->
                 val lat = location.latitude
                 val long = location.longitude
@@ -50,8 +57,10 @@ class LocationService : Service() {
                     "Location: \n" + "Latitude: $lat \n" + "Longitude $long"
                 )
                 notificationManager.notify(NOTIFICATION_ID, updateNotification.build())
+                processLocationUseCase.invoke(location)
             }
             .launchIn(serviceScope)
+
         ServiceCompat.startForeground(
             this,
             NOTIFICATION_ID,
@@ -75,7 +84,6 @@ class LocationService : Service() {
     override fun onDestroy() {
         super.onDestroy()
         serviceScope.cancel()
-
     }
 
     override fun onBind(p0: Intent?): IBinder? = null
