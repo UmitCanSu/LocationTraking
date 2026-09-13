@@ -1,4 +1,4 @@
-package com.example.locationtracking.presentation.map.components
+package com.example.locationtracking.presentation.ui.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -29,8 +29,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.locationtracking.R
-import com.example.locationtracking.ui.theme.PrimaryBlue
-import com.example.locationtracking.ui.theme.PrimaryContainerBlue
+import com.example.locationtracking.presentation.ui.theme.PrimaryBlue
+import com.example.locationtracking.presentation.ui.theme.PrimaryContainerBlue
 
 /**
  * Primary Action Controls: Reset Route & Extended FAB

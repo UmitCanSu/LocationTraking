@@ -1,4 +1,4 @@
-package com.example.locationtracking.presentation.map.components
+package com.example.locationtracking.presentation.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -6,9 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -16,8 +14,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Explore
-import androidx.compose.material.icons.filled.Layers
 import androidx.compose.material.icons.filled.MyLocation
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -35,12 +31,13 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.locationtracking.R
 import com.example.locationtracking.domain.model.TrackedLocation
 import com.example.locationtracking.presentation.map.MainUiState
-import com.example.locationtracking.ui.theme.*
+import com.example.locationtracking.presentation.ui.theme.PrimaryBlue
+import com.example.locationtracking.presentation.ui.theme.PrimaryContainerBlue
+import com.example.locationtracking.presentation.ui.theme.SecondaryContainerTeal
 
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng

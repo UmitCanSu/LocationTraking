@@ -1,4 +1,4 @@
-package com.example.locationtracking.presentation.map.components
+package com.example.locationtracking.presentation.ui.components
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Warning

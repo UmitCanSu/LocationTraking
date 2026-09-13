@@ -1,4 +1,4 @@
-package com.example.locationtracking.presentation.map.components
+package com.example.locationtracking.presentation.ui.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -35,7 +35,7 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.example.locationtracking.R
 import com.example.locationtracking.domain.model.TrackedLocation
-import com.example.locationtracking.ui.theme.PrimaryBlue
+import com.example.locationtracking.presentation.ui.theme.PrimaryBlue
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale

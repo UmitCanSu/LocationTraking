@@ -14,11 +14,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.locationtracking.presentation.map.components.MapCanvasCard
-import com.example.locationtracking.presentation.map.components.PermissionRequestBanner
-import com.example.locationtracking.presentation.map.components.PrimaryActionControlsDock
-import com.example.locationtracking.presentation.map.components.ResetRouteConfirmationDialog
-import com.example.locationtracking.presentation.map.components.SelectedMarkerDetailDialog
+import com.example.locationtracking.presentation.ui.components.MapCanvasCard
+import com.example.locationtracking.presentation.ui.components.PermissionRequestBanner
+import com.example.locationtracking.presentation.ui.components.PrimaryActionControlsDock
+import com.example.locationtracking.presentation.ui.components.ResetRouteConfirmationDialog
+import com.example.locationtracking.presentation.ui.components.SelectedMarkerDetailDialog
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
 import com.google.android.gms.maps.CameraUpdateFactory
